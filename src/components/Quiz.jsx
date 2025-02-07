@@ -18,7 +18,10 @@ const Quiz = () => {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [quizTitle, setQuizTitle] = useState('');
+
+  const API_KEY = 'dVk4yfdQ21ZdXjt6Ayf6uwENthztAKSUnBcqlyPM';
 
   useEffect(() => {
     const title = category.charAt(0).toUpperCase() + category.slice(1);
@@ -28,11 +31,13 @@ const Quiz = () => {
 
   const fetchQuestions = async () => {
     try {
-      const apiKey = 'Nlw9w2w7phdk4lLXuc1A4PkoJ7iL172j9eWjwLd4';
+      setLoading(true);
+      setError(null);
+      
       const url = new URL('https://quizapi.io/api/v1/questions');
       
       const params = {
-        apiKey,
+        apiKey: API_KEY,
         limit: 10,
         category: category.toLowerCase(),
         difficulty: 'easy'
@@ -41,7 +46,16 @@ const Quiz = () => {
       url.search = new URLSearchParams(params).toString();
       
       const response = await fetch(url);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
       const data = await response.json();
+      
+      if (!data || data.length === 0) {
+        throw new Error(`No questions found for category: ${category}`);
+      }
       
       const formattedQuestions = data.map(q => ({
         question: q.question,
@@ -57,6 +71,7 @@ const Quiz = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching questions:', error);
+      setError(error.message);
       setLoading(false);
     }
   };
@@ -102,7 +117,6 @@ const Quiz = () => {
       const updatedQuizzes = (userData.quizzesCompleted || 0) + 1;
       const updatedPoints = (userData.points || 0) + points;
 
-      // Store quiz history
       const quizHistory = userData.quizHistory || [];
       const quizResult = {
         date: new Date().toISOString(),
@@ -113,7 +127,6 @@ const Quiz = () => {
       };
       quizHistory.push(quizResult);
 
-      // Store completed quizzes separately
       const completedQuizzes = userData.completedQuizzes || {};
       if (!completedQuizzes[category]) {
         completedQuizzes[category] = [];
@@ -127,7 +140,6 @@ const Quiz = () => {
         completedQuizzes: completedQuizzes
       });
 
-      // Redirect to dashboard after 3 seconds
       setTimeout(() => {
         navigate('/student-dashboard');
       }, 3000);
@@ -142,6 +154,41 @@ const Quiz = () => {
             <Loader2 className="w-12 h-12 text-blue-500 animate-spin mx-auto mb-4" />
             <p className="text-white text-lg">Loading {quizTitle} quiz...</p>
           </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center">
+        <div className="relative z-10 min-h-[400px] bg-gray-800/90 p-8 rounded-xl shadow-xl flex items-center justify-center">
+          <div className="text-center">
+            <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
+            <p className="text-white text-lg">Error loading quiz: {error}</p>
+            <button 
+              onClick={fetchQuestions} 
+              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Retry
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (questions.length === 0) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 flex items-center justify-center">
+        <div className="text-center text-white">
+          <p>No questions available for this category. Please try another.</p>
+          <button 
+            onClick={() => navigate('/student-dashboard')} 
+            className="mt-4 px-4 py-2 bg-blue-500 rounded"
+          >
+            Back to Dashboard
+          </button>
         </div>
       </div>
     );
