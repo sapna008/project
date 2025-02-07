@@ -21,7 +21,7 @@ const ParticlesComponent = ({ id, theme }) => {
     () => ({
       background: {
         color: {
-          value: theme === 'light' ? "rgb(8, 86, 86)" : "rgb(0, 28, 45)",
+          value: theme === 'light' ? "rgb(0, 28, 45)" : "rgb(8, 86, 86)",
         },
       },
       fpsLimit: 120,

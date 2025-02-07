@@ -21,9 +21,10 @@ function Navbar({ theme, toggleTheme }) {
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? (
-                <Sun className="h-5 w-5 text-teal-400" />
+                 <Moon className="h-5 w-5 text-gray-300" />
               ) : (
-                <Moon className="h-5 w-5 text-gray-300" />
+               
+                <Sun className="h-5 w-5 text-teal-400" />
               )}
             </button>
 
