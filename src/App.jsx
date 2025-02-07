@@ -19,6 +19,7 @@ function App() {
         <Route path="/quiz/:category" element={<Quiz />} />
       </Routes>
     </Router>
+    
   );
 }
 
