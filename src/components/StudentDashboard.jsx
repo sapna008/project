@@ -6,6 +6,7 @@ import { auth, database } from '../firebase';
 import { Trophy, BookOpen, Award, LogOut, Crown, History, User, CheckCircle, BarChart } from 'lucide-react';
 import Profile from './Profile';
 import ProgressReport from './ProgressReport';
+import VocabularyGame from './VocabluryGame';
 
 function StudentDashboard() {
   const navigate = useNavigate();
@@ -202,45 +203,48 @@ function StudentDashboard() {
             </div>
           </div>
 
-          {/* Quiz Section */}
-          <div className="lg:col-span-2">
+          {/* Quiz and Vocabulary Game Section */}
+          <div className="lg:col-span-2 space-y-8">
             {!showHistory ? (
-              <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-xl font-bold text-white">Available Quizzes</h2>
-                  <button
-                    onClick={() => setShowHistory(true)}
-                    className="flex items-center text-gray-400 hover:text-white transition-colors"
-                  >
-                    <History className="w-4 h-4 mr-2" />
-                    View History
-                  </button>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {availableQuizzes.map(({ interest, category, completed, bestScore }) => (
-                    <div key={interest} className="bg-gray-700/30 rounded-lg p-6">
-                      <div className="flex justify-between items-start mb-4">
-                        <h3 className="text-lg font-semibold text-white">{interest}</h3>
-                        {completed > 0 && (
-                          <div className="flex items-center text-sm text-green-400">
-                            <CheckCircle className="w-4 h-4 mr-1" />
-                            {bestScore.toFixed(0)}% Best
-                          </div>
-                        )}
+              <>
+                <VocabularyGame />
+                <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20">
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="text-xl font-bold text-white">Available Quizzes</h2>
+                    <button
+                      onClick={() => setShowHistory(true)}
+                      className="flex items-center text-gray-400 hover:text-white transition-colors"
+                    >
+                      <History className="w-4 h-4 mr-2" />
+                      View History
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {availableQuizzes.map(({ interest, category, completed, bestScore }) => (
+                      <div key={interest} className="bg-gray-700/30 rounded-lg p-6">
+                        <div className="flex justify-between items-start mb-4">
+                          <h3 className="text-lg font-semibold text-white">{interest}</h3>
+                          {completed > 0 && (
+                            <div className="flex items-center text-sm text-green-400">
+                              <CheckCircle className="w-4 h-4 mr-1" />
+                              {bestScore.toFixed(0)}% Best
+                            </div>
+                          )}
+                        </div>
+                        <p className="text-gray-300 mb-4 text-sm">
+                          Test your knowledge in {interest}! {completed > 0 ? `Completed ${completed} times.` : 'Not attempted yet.'}
+                        </p>
+                        <button
+                          onClick={() => navigate(`/quiz/${category}`)}
+                          className="w-full bg-teal-500 text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition-colors flex items-center justify-center"
+                        >
+                          {completed > 0 ? 'Retake Quiz' : 'Start Quiz'}
+                        </button>
                       </div>
-                      <p className="text-gray-300 mb-4 text-sm">
-                        Test your knowledge in {interest}! {completed > 0 ? `Completed ${completed} times.` : 'Not attempted yet.'}
-                      </p>
-                      <button
-                        onClick={() => navigate(`/quiz/${category}`)}
-                        className="w-full bg-teal-500 text-white px-6 py-2 rounded-lg hover:bg-teal-600 transition-colors flex items-center justify-center"
-                      >
-                        {completed > 0 ? 'Retake Quiz' : 'Start Quiz'}
-                      </button>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </>
             ) : (
               <QuizHistory history={studentData.quizHistory} />
             )}
