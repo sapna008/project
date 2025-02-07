@@ -5,6 +5,7 @@ import StudentDashboard from './components/StudentDashboard';
 import ParticlesComponent from './components/Particle';
 import AdminLogin from './components/AdminLogin';
 import AdminPanel from './components/AdminPanel';
+import Quiz from './components/Quiz';
 
 function App() {
   return (
@@ -14,7 +15,8 @@ function App() {
         <Route path="/" element={<AuthForm />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/admin-panel" element={<AdminPanel />} />
-        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/student-dashboard/*" element={<StudentDashboard />} />
+        <Route path="/quiz/:category" element={<Quiz />} />
       </Routes>
     </Router>
   );
