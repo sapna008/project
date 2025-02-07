@@ -2,7 +2,7 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { useEffect, useMemo, useState } from "react";
 import { loadSlim } from "@tsparticles/slim";
 
-const ParticlesComponent = (props) => {
+const ParticlesComponent = ({ id, theme }) => {
   const [init, setInit] = useState(false);
 
   useEffect(() => {
@@ -21,7 +21,7 @@ const ParticlesComponent = (props) => {
     () => ({
       background: {
         color: {
-          value: "rgb(0, 28, 45)",
+          value: theme === 'light' ? "rgb(76, 141, 146)" : "rgb(0, 28, 45)",
         },
       },
       fpsLimit: 120,
@@ -48,10 +48,10 @@ const ParticlesComponent = (props) => {
       },
       particles: {
         color: {
-          value: "#FFFFFF",
+          value: theme === '#FFFFFF' ? "#2D3748" : "#FFFFFF",
         },
         links: {
-          color: "#FFFFFF",
+          color: theme === 'FFFFFF' ? "#2D3748" : "#FFFFFF",
           distance: 150,
           enable: true,
           opacity: 0.3,
@@ -85,10 +85,10 @@ const ParticlesComponent = (props) => {
       },
       detectRetina: true,
     }),
-    [],
+    [theme],
   );
 
-  return <Particles id={props.id} init={particlesLoaded} options={options} />; 
+  return <Particles id={id} init={particlesLoaded} options={options} />; 
 };
 
 export default ParticlesComponent;
