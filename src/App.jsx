@@ -6,6 +6,7 @@ import ParticlesComponent from './components/Particle';
 import AdminLogin from './components/AdminLogin';
 import AdminPanel from './components/AdminPanel';
 import Quiz from './components/Quiz';
+import QuizGame from './components/QuizGame';
 import LandingPage from './components/LandingPage';
 import Navbar from './components/Navbar';
 
@@ -41,6 +42,7 @@ function AppContent() {
         <Route path="/admin-panel" element={<AdminPanel />} />
         <Route path="/student-dashboard/*" element={<StudentDashboard />} />
         <Route path="/quiz/:category" element={<Quiz />} />
+        <Route path="/quiz-game/:quizId" element={<QuizGame />} />
       </Routes>
     </div>
   );
