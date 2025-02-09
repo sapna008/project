@@ -208,12 +208,11 @@ function StudentDashboard() {
                     className="flex items-center justify-between p-4 bg-gray-700/30 rounded-lg hover:bg-gray-700/40 transition-colors duration-200"
                   >
                     <div className="flex items-center">
-                      <span className={`w-6 text-center font-bold ${
-                        index === 0 ? 'text-yellow-400' :
-                        index === 1 ? 'text-gray-300' :
-                        index === 2 ? 'text-amber-600' :
-                        'text-gray-400'
-                      }`}>
+                      <span className={`w-6 text-center font-bold ${index === 0 ? 'text-yellow-400' :
+                          index === 1 ? 'text-gray-300' :
+                            index === 2 ? 'text-amber-600' :
+                              'text-gray-400'
+                        }`}>
                         #{index + 1}
                       </span>
                       <div className="relative">
@@ -225,11 +224,10 @@ function StudentDashboard() {
                           alt={student.name}
                         />
                         {index < 3 && (
-                          <Crown className={`h-4 w-4 absolute -top-1 -right-1 ${
-                            index === 0 ? 'text-yellow-400' :
-                            index === 1 ? 'text-gray-300' :
-                            'text-amber-600'
-                          }`} />
+                          <Crown className={`h-4 w-4 absolute -top-1 -right-1 ${index === 0 ? 'text-yellow-400' :
+                              index === 1 ? 'text-gray-300' :
+                                'text-amber-600'
+                            }`} />
                         )}
                       </div>
                       <span className="ml-3 text-white font-medium truncate max-w-[120px]">
@@ -248,7 +246,7 @@ function StudentDashboard() {
             {!showHistory ? (
               <>
                 <VocabularyGame />
-                
+
                 {/* Live Quizzes Section */}
                 <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20">
                   <div className="flex justify-between items-center mb-6">
@@ -381,11 +379,10 @@ function StudentDashboard() {
                         navigate('/student-dashboard/profile');
                         setShowPanel(false);
                       }}
-                      className={`flex items-center w-full px-4 py-2 text-sm ${
-                        location.pathname.includes('/profile')
+                      className={`flex items-center w-full px-4 py-2 text-sm ${location.pathname.includes('/profile')
                           ? 'bg-gray-700 text-white'
                           : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                      } transition-colors duration-200`}
+                        } transition-colors duration-200`}
                     >
                       <User className="w-4 h-4 mr-2" />
                       My Profile
@@ -395,11 +392,10 @@ function StudentDashboard() {
                         navigate('/student-dashboard');
                         setShowPanel(false);
                       }}
-                      className={`flex items-center w-full px-4 py-2 text-sm ${
-                        location.pathname === '/student-dashboard'
+                      className={`flex items-center w-full px-4 py-2 text-sm ${location.pathname === '/student-dashboard'
                           ? 'bg-gray-700 text-white'
                           : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                      } transition-colors duration-200`}
+                        } transition-colors duration-200`}
                     >
                       <BookOpen className="w-4 h-4 mr-2" />
                       My Dashboard
@@ -409,11 +405,10 @@ function StudentDashboard() {
                         navigate('/student-dashboard/progress');
                         setShowPanel(false);
                       }}
-                      className={`flex items-center w-full px-4 py-2 text-sm ${
-                        location.pathname.includes('/progress')
+                      className={`flex items-center w-full px-4 py-2 text-sm ${location.pathname.includes('/progress')
                           ? 'bg-gray-700 text-white'
                           : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                      } transition-colors duration-200`}
+                        } transition-colors duration-200`}
                     >
                       <BarChart className="w-4 h-4 mr-2" />
                       Progress Report
@@ -437,7 +432,7 @@ function StudentDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Routes>
           <Route path="/profile" element={<Profile studentId={studentData.uid} studentData={studentData} />} />
-          <Route path="/progress" element={<ProgressReport />} />
+          <Route path="/progress" element={<ProgressReport studentId={studentData.uid} />} />
           <Route path="/quiz-game/:quizId" element={<QuizGame />} />
           <Route path="/quiz/:category" element={<Quiz />} />
           <Route path="/" element={<MainContent />} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { BarChart as BarChartIcon, LineChart as LineChartIcon, PieChart as PieChartIcon } from 'lucide-react';
+import { BarChart as BarChartIcon, LineChart as LineChartIcon, PieChart as PieChartIcon, Brain } from 'lucide-react';
 import {
   BarChart,
   Bar,
@@ -15,10 +15,11 @@ import {
   Pie,
   Cell
 } from 'recharts';
+import AiGenReport from './AiGenReport';
 
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#a4de6c'];
 
-function ProgressReport() {
+function ProgressReport({ studentId }) {
   const [progressData, setProgressData] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -251,6 +252,15 @@ function ProgressReport() {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* AI-Generated Progress Report */}
+      <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-purple-500/20">
+        <div className="flex items-center gap-3 mb-6">
+          <Brain className="h-6 w-6 text-purple-400" />
+          <h2 className="text-xl font-bold text-white">AI Analysis & Recommendations</h2>
+        </div>
+        <AiGenReport studentId={studentId} />
       </div>
     </div>
   );
