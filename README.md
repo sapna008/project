@@ -1,5 +1,9 @@
 # Educational Gamification App 🎮 📚
 
+## 👩‍💻 Developer
+**Sapna Sarkar**  
+Email: sapnapks1@gmail.com
+
 A comprehensive educational platform that transforms learning through gamification, featuring interactive quizzes, reward systems, AI-powered recommendations, and progress tracking. This full-stack application combines engaging UI/UX with powerful features to create an immersive learning experience.
 
 ## 🌟 Live Demo & Presentation
@@ -192,3 +196,9 @@ npm run dev
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 📞 Contact
+
+For any queries or suggestions, feel free to reach out:
+- **Developer:** Sapna Sarkar
+- **Email:** sapnapks1@gmail.com
